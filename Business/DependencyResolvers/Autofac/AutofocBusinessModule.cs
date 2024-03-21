@@ -20,5 +20,8 @@ public class AutofocBusinessModule:Module
 
         builder.RegisterType<CategoryManager>().As<ICategoryService>();
         builder.RegisterType<EfCategoryDal>().As<ICategoryDal>();
+
+        builder.RegisterType<UserManager>().As<IUserService>();
+        builder.RegisterType<EfUserDal>().As<IUserDal>();
     }
 }

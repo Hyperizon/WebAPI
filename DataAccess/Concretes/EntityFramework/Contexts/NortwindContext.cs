@@ -1,4 +1,5 @@
-﻿using Entities.Concretes;
+﻿using Core.Entities.Concretes;
+using Entities.Concretes;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,4 +18,7 @@ public class NortwindContext:DbContext
 
     public DbSet<Product> Products { get; set; }
     public DbSet<Category> Categories { get; set; }
+    public DbSet<OperationClaim> OperationClaims { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
 }
