@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccess.Concretes.EntityFramework;
 using DataAccess.Abstracts;
+using Core.Utilities.Security.Jwt;
 
 namespace Business.DependencyResolvers.Autofac;
 
@@ -23,5 +24,8 @@ public class AutofocBusinessModule:Module
 
         builder.RegisterType<UserManager>().As<IUserService>();
         builder.RegisterType<EfUserDal>().As<IUserDal>();
+
+        builder.RegisterType<AuthManager>().As<IAuthService>();
+        builder.RegisterType<JwtHelper>().As<ITokenHelper>();
     }
 }

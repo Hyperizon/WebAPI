@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Business.Abstracts;
 using Entities.Concretes;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI.Controllers
 {
@@ -16,7 +17,8 @@ namespace WebAPI.Controllers
             _productService = productService;
         }
 
-        [HttpGet("GetAll")]
+        [HttpGet("getall")]
+        [Authorize(Roles = "Product.List")]
         public IActionResult GetAll()
         {
             var result = _productService.GetList();
@@ -27,7 +29,7 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
 
-        [HttpGet("GetAllByCategory")]
+        [HttpGet("getallbycategory")]
         public IActionResult GetAllByCategory(int categoryId)
         {
             var result = _productService.GetListByCategory(categoryId);
