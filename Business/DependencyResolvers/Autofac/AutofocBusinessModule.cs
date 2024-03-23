@@ -1,13 +1,11 @@
 ﻿using Autofac;
 using Business.Concretes;
 using Business.Abstracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DataAccess.Concretes.EntityFramework;
 using DataAccess.Abstracts;
+using Autofac.Extras.DynamicProxy;
+using Castle.DynamicProxy;
+using Core.Utilities.Interceptors;
 
 namespace Business.DependencyResolvers.Autofac;
 
@@ -23,5 +21,12 @@ public class AutofocBusinessModule:Module
 
         builder.RegisterType<UserManager>().As<IUserService>();
         builder.RegisterType<EfUserDal>().As<IUserDal>();
+
+        var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+        builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces().EnableInterfaceInterceptors(new ProxyGenerationOptions()
+        {
+            Selector = new AspectInterceptorSelector()
+        }).SingleInstance();
+
     }
 }

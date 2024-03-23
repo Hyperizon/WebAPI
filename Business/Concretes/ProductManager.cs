@@ -1,5 +1,8 @@
 ﻿using Business.Abstracts;
 using Business.Contants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.AutoFac.Validation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstracts;
 using Entities.Concretes;
@@ -14,6 +17,7 @@ public class ProductManager : IProductService
         _productDal = productDal;
     }
 
+    [ValidationAspect(typeof(ProductValidator))]
     public IResult Add(Product product)
     {
         _productDal.Add(product);

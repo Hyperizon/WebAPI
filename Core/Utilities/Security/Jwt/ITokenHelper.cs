@@ -9,5 +9,5 @@ namespace Core.Utilities.Security.Jwt;
 
 public interface ITokenHelper
 {
-    AccsessToken CreateToken(User user, List<OperationClaim> operationClaims);
+    AccessToken CreateToken(User user, List<OperationClaim> operationClaims);
 }

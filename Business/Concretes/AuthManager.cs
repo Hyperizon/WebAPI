@@ -19,11 +19,11 @@ public class AuthManager : IAuthService
 
     }
 
-    public IDataResult<AccsessToken> CreateAccessToken(User user)
+    public IDataResult<AccessToken> CreateAccessToken(User user)
     {
         var claims = _userService.GetClaims(user);
         var accessToken = _tokenHelper.CreateToken(user, claims);
-        return new SuccsessDataResult<AccsessToken>(accessToken, "Access token created!");
+        return new SuccsessDataResult<AccessToken>(accessToken, "Access token created!");
     }
 
     public IDataResult<User> Login(UserForLoginDto userForLoginDto)

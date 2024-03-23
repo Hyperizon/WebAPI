@@ -25,7 +25,7 @@ public class JwtHelper : ITokenHelper
         _accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);
     }
 
-    public AccsessToken CreateToken(User user, List<OperationClaim> operationClaims)
+    public AccessToken CreateToken(User user, List<OperationClaim> operationClaims)
     {
         var securityKey = SecurityKeyHelper.CreateSecurityKey(_tokenOptions.SecurityKey);
         var signingCredentials = SigningCredentialsHelper.CreateSigningCredentials(securityKey);
@@ -33,7 +33,7 @@ public class JwtHelper : ITokenHelper
         var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
         var token = jwtSecurityTokenHandler.WriteToken(jwt);
 
-        return new AccsessToken { Token = token, Expiration = _accessTokenExpiration };
+        return new AccessToken { Token = token, Expiration = _accessTokenExpiration };
     }
 
     public JwtSecurityToken CreateJwtSecurityToken(TokenOptions tokenOptions, User user, SigningCredentials signingCredentials, List<OperationClaim> operationClaims)
