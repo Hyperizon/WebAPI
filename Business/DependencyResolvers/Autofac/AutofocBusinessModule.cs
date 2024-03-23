@@ -6,6 +6,7 @@ using DataAccess.Abstracts;
 using Autofac.Extras.DynamicProxy;
 using Castle.DynamicProxy;
 using Core.Utilities.Interceptors;
+using Core.Utilities.Security.Jwt;
 
 namespace Business.DependencyResolvers.Autofac;
 
@@ -28,5 +29,8 @@ public class AutofocBusinessModule:Module
             Selector = new AspectInterceptorSelector()
         }).SingleInstance();
 
+
+        builder.RegisterType<AuthManager>().As<IAuthService>();
+        builder.RegisterType<JwtHelper>().As<ITokenHelper>();
     }
 }
