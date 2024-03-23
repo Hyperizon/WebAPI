@@ -1,5 +1,5 @@
 ﻿using Business.Abstracts;
-using Business.Contants;
+using Business.Constants;
 using Core.Entities.Concretes;
 using Core.Utilities.Hashing;
 using Core.Utilities.Results;
@@ -42,23 +42,24 @@ public class AuthManager : IAuthService
         return new SuccsessDataResult<User>(userToCheck, Messages.SuccessfulLogin);
     }
 
-    public IDataResult<User> Register(UserForRegisterDto userForRegisterDto, string password)
+    public IDataResult<User> Register(UserForRegisterDto userForRegisterDto)
     {
         byte[] passwordHash, passwordSalt;
-        HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
-        var user = new User { 
-            Email = userForRegisterDto.Email, 
-            FirstName = userForRegisterDto.FirstName, 
-            LastName = userForRegisterDto.LastName, 
-            PasswordHash = passwordHash, 
-            PasswordSalt=passwordSalt, 
+        HashingHelper.CreatePasswordHash(userForRegisterDto.Password, out passwordHash, out passwordSalt);
+        var user = new User
+        {
+            Email = userForRegisterDto.Email,
+            FirstName = userForRegisterDto.FirstName,
+            LastName = userForRegisterDto.LastName,
+            PasswordHash = passwordHash,
+            PasswordSalt = passwordSalt,
             Status = true
         };
         _userService.Add(user);
         return new SuccsessDataResult<User>(user, Messages.UserRegistered);
     }
 
-    public IResult userExists(string email)
+    public IResult UserExists(string email)
     {
         if (_userService.GetByMail(email) != null)
         {
